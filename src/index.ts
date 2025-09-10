@@ -1,9 +1,7 @@
-import { Hono } from 'hono';
+import { createServerApp } from './server';
 
-const app = new Hono();
+const app = createServerApp();
 
-app.get('/', (c) => {
-	return c.text('Hello Hono!');
-});
-
-export default app;
+export default {
+	fetch: app.fetch,
+} satisfies ExportedHandler<CloudflareBindings>;
