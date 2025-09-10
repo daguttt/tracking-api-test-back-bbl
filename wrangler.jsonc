@@ -3,9 +3,19 @@
 	"name": "tracking-api-test",
 	"main": "src/index.ts",
 	"compatibility_date": "2025-09-10",
-	// "compatibility_flags": [
-	//   "nodejs_compat"
-	// ],
+	"compatibility_flags": [
+		"nodejs_compat",
+		"nodejs_compat_populate_process_env",
+		"enable_request_signal",
+	],
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "prod-tracking-api",
+			"database_id": "52512e5a-9943-40c2-bc31-daeeabba11eb",
+			"migrations_dir": "src/db/migrations",
+		},
+	],
 	// "vars": {
 	//   "MY_VAR": "my-variable"
 	// },

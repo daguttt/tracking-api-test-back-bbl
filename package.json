@@ -8,13 +8,25 @@
 		"format:write": "prettier --write \"**/*.{ts,html,astro,tsx,js,jsx,mdx,jsonc}\" --cache",
 		"format:check": "prettier --check \"**/*.{ts,html,astro,tsx,js,jsx,mdx,jsonc}\" --cache",
 		"lint:check": "eslint **/*.{ts,astro} --no-warn-ignored",
-		"lint:fix": "eslint **/*.{ts,astro} --fix --no-warn-ignored"
+		"lint:fix": "eslint **/*.{ts,astro} --fix --no-warn-ignored",
+		"db:push:dev": "drizzle-kit push",
+		"db:push:prod": "NODE_ENV=production drizzle-kit push",
+		"db:generate": "drizzle-kit generate",
+		"db:migrate:dev": "wrangler d1 migrations apply prod-tracking-api --local",
+		"db:migrate:prod": "wrangler d1 migrations apply prod-tracking-api --remote",
+		"db:studio:dev": "drizzle-kit studio",
+		"db:studio:prod": "NODE_ENV=production drizzle-kit studio"
 	},
 	"dependencies": {
+		"@libsql/client": "0.15.15",
+		"drizzle-orm": "0.44.5",
 		"hono": "^4.9.6"
 	},
 	"devDependencies": {
 		"@eslint/js": "9.35.0",
+		"@types/node": "24.3.1",
+		"dotenv": "17.2.2",
+		"drizzle-kit": "0.31.4",
 		"eslint": "9.35.0",
 		"prettier": "3.6.2",
 		"typescript": "^5.9.2",
