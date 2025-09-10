@@ -9,7 +9,7 @@ The project is built on Cloudflare Workers for serverless compute and uses Cloud
 
 ## Deployed version
 
-Deployed version available: https://tracking-api-test-back-bbl.daguttt.workers.dev/api/
+Deployed version available: https://tracking-api-test-back-bbl.daguttt.workers.dev/api/v1/
 
 ## Local Development Setup
 
