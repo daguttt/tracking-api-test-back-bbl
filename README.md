@@ -54,8 +54,18 @@ Create the local D1 (SQLite) database:
 pnpm db:create:dev
 ```
 
+> [!NOTE]
+> The script will use `wrangler d1 migrations apply` in order to apply the migrations. **Make sure to allow the migrations to run (Hit `y` when prompted)**
+
+
 #### 5. Run the development server
 ```bash
 pnpm dev
 ```
+
+Seed the database (Only the first time you set up the project)
+```bash
+pnpm db:seed:dev
+```
+
 

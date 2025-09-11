@@ -11,6 +11,7 @@
 		"lint:fix": "eslint **/*.{ts,astro} --fix --no-warn-ignored",
 		"db:create:dev": "sh ./scripts/create-local-db.sh",
 		"db:recreate:dev": "rm -rf .wrangler && pnpm db:create:dev",
+		"db:seed:dev": "sh ./scripts/seed-local-db.sh",
 		"db:push:dev": "drizzle-kit push",
 		"db:push:prod": "NODE_ENV=production drizzle-kit push",
 		"db:generate": "drizzle-kit generate",
