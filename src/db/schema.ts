@@ -55,6 +55,8 @@ export const checkpointsTable = sqliteTable('checkpoints', {
 	...timestamps,
 });
 
+export type Checkpoint = typeof checkpointsTable.$inferSelect;
+
 export const checkpointsRelations = relations(checkpointsTable, ({ one }) => ({
 	unit: one(unitsTable, {
 		fields: [checkpointsTable.unitId],
