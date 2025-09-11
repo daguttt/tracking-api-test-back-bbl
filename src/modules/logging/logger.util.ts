@@ -1,5 +1,3 @@
-import type { Context } from 'hono';
-import { checkAvailabilityToLog } from './check-availability-to-log';
 import type { LogLevelLabel } from './log-level-label.model';
 
 export const logger = {
@@ -10,69 +8,23 @@ export const logger = {
 	error,
 };
 
-function log(
-	c: Context<{ Bindings: CloudflareBindings }>,
-	logLevel: LogLevelLabel,
-	...args: object[]
-) {
-	const canLog = checkAvailabilityToLog(c, {
-		targetLevel: logLevel,
-	});
-
-	if (!canLog) return;
-
+function log(logLevel: LogLevelLabel, ...args: object[]) {
 	_log(logLevel, ...args);
 }
 
-function debug(
-	c: Context<{ Bindings: CloudflareBindings }>,
-	...args: unknown[]
-) {
-	const canLog = checkAvailabilityToLog(c, {
-		targetLevel: 'debug',
-	});
-
-	if (!canLog) return;
-
+function debug(...args: unknown[]) {
 	_log('debug', ...args);
 }
 
-function info(
-	c: Context<{ Bindings: CloudflareBindings }>,
-	...args: unknown[]
-) {
-	const canLog = checkAvailabilityToLog(c, {
-		targetLevel: 'info',
-	});
-
-	if (!canLog) return;
-
+function info(...args: unknown[]) {
 	_log('info', ...args);
 }
 
-function warn(
-	c: Context<{ Bindings: CloudflareBindings }>,
-	...args: unknown[]
-) {
-	const canLog = checkAvailabilityToLog(c, {
-		targetLevel: 'warn',
-	});
-
-	if (!canLog) return;
-
+function warn(...args: unknown[]) {
 	_log('warn', ...args);
 }
 
-function error(
-	c: Context<{ Bindings: CloudflareBindings }>,
-	...args: unknown[]
-) {
-	const canLog = checkAvailabilityToLog(c, {
-		targetLevel: 'error',
-	});
-
-	if (!canLog) return;
-
+function error(...args: unknown[]) {
 	_log('error', ...args);
 }
 

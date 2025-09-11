@@ -1,4 +1,3 @@
-import type { Context } from 'hono';
 import type { LogLevelLabel } from './log-level-label.model';
 
 const LOG_LEVEL: Record<LogLevelLabel, number> = {
@@ -8,15 +7,12 @@ const LOG_LEVEL: Record<LogLevelLabel, number> = {
 	error: 40,
 } as const;
 
-export function checkAvailabilityToLog(
-	c: Context<{ Bindings: CloudflareBindings }>,
-	{
-		targetLevel: targetLevelLabel,
-	}: {
-		targetLevel: LogLevelLabel;
-	}
-) {
-	const configuredLevel = LOG_LEVEL[c.env.LOGGING_LEVEL as LogLevelLabel];
+export function checkAvailabilityToLog({
+	targetLevel: targetLevelLabel,
+}: {
+	targetLevel: LogLevelLabel;
+}) {
+	const configuredLevel = LOG_LEVEL[process.env.LOG_LEVEL as LogLevelLabel];
 	const targetLevel = LOG_LEVEL[targetLevelLabel];
 	if (targetLevel < configuredLevel) return false;
 
