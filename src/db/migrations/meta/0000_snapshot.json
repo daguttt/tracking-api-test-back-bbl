@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "f332b4af-8f04-4843-a972-8a2b5d7b3d02",
+  "id": "1643b037-1e86-4a21-8d42-0a3ef0fdbe7c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "checkpoints": {
@@ -21,8 +21,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "unitId": {
-          "name": "unitId",
+        "unit_id": {
+          "name": "unit_id",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
@@ -47,12 +47,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "checkpoints_unitId_units_id_fk": {
-          "name": "checkpoints_unitId_units_id_fk",
+        "checkpoints_unit_id_units_id_fk": {
+          "name": "checkpoints_unit_id_units_id_fk",
           "tableFrom": "checkpoints",
           "tableTo": "units",
           "columnsFrom": [
-            "unitId"
+            "unit_id"
           ],
           "columnsTo": [
             "id"
@@ -74,14 +74,6 @@
           "primaryKey": true,
           "notNull": true,
           "autoincrement": false
-        },
-        "status": {
-          "name": "status",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "'CREATED'"
         },
         "updated_at": {
           "name": "updated_at",
@@ -116,8 +108,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "shipmentId": {
-          "name": "shipmentId",
+        "shipment_id": {
+          "name": "shipment_id",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
@@ -142,12 +134,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "units_shipmentId_shipments_id_fk": {
-          "name": "units_shipmentId_shipments_id_fk",
+        "units_shipment_id_shipments_id_fk": {
+          "name": "units_shipment_id_shipments_id_fk",
           "tableFrom": "units",
           "tableTo": "shipments",
           "columnsFrom": [
-            "shipmentId"
+            "shipment_id"
           ],
           "columnsTo": [
             "id"

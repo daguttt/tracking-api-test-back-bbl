@@ -2,29 +2,14 @@ import { relations, sql } from 'drizzle-orm';
 import { sqliteTable, text } from 'drizzle-orm/sqlite-core';
 
 const timestamps = {
-	updated_at: text().default(sql`(current_timestamp)`),
-	created_at: text().default(sql`(current_timestamp)`),
+	updatedAt: text('updated_at').default(sql`(current_timestamp)`),
+	createdAt: text('created_at').default(sql`(current_timestamp)`),
 };
 
 export const shipmentsTable = sqliteTable('shipments', {
 	id: text()
 		.$defaultFn(() => crypto.randomUUID())
 		.primaryKey(),
-	status: text({
-		enum: [
-			'CREATED',
-			'IN_PROGRESS',
-			'PICKED_UP',
-			'IN_TRANSIT',
-			'AT_FACILITY',
-			'OUT_FOR_DELIVERY',
-			'DELIVERED',
-			'PARTIALLY_DELIVERED',
-			'EXCEPTION',
-		],
-	})
-		.notNull()
-		.default('CREATED'),
 	...timestamps,
 });
 
@@ -36,7 +21,7 @@ export const unitsTable = sqliteTable('units', {
 	id: text()
 		.$defaultFn(() => crypto.randomUUID())
 		.primaryKey(),
-	shipmentId: text()
+	shipmentId: text('shipment_id')
 		.notNull()
 		.references(() => shipmentsTable.id),
 	...timestamps,
@@ -64,7 +49,7 @@ export const checkpointsTable = sqliteTable('checkpoints', {
 			'EXCEPTION',
 		],
 	}).notNull(),
-	unitId: text()
+	unitId: text('unit_id')
 		.notNull()
 		.references(() => unitsTable.id),
 	...timestamps,

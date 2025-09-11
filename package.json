@@ -9,6 +9,8 @@
 		"format:check": "prettier --check \"**/*.{ts,html,astro,tsx,js,jsx,mdx,jsonc}\" --cache",
 		"lint:check": "eslint **/*.{ts,astro} --no-warn-ignored",
 		"lint:fix": "eslint **/*.{ts,astro} --fix --no-warn-ignored",
+		"db:create:dev": "sh ./scripts/create-local-db.sh",
+		"db:recreate:dev": "rm -rf .wrangler && pnpm db:create:dev",
 		"db:push:dev": "drizzle-kit push",
 		"db:push:prod": "NODE_ENV=production drizzle-kit push",
 		"db:generate": "drizzle-kit generate",

@@ -48,16 +48,10 @@ cp .env.example .env
 
    
 
-#### 4. Cloudflare set up
-Create the local D1 database running the dev command (only meant to create the DB, not to run the dev server)
+#### 4. Cloudflare Setup
+Create the local D1 (SQLite) database:
 ```bash
-pnpm dev
-```
-
-Then, after the database is created inside the `.wrangler/d1` folder, you can push the DB schema
-
-```bash
-pnpm db:push:dev # Local DB
+pnpm db:create:dev
 ```
 
 #### 5. Run the development server

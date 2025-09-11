@@ -6,10 +6,18 @@ import path from 'node:path';
 
 function getLocalD1DB() {
 	try {
+		console.log();
+		console.info('[drizzle.config.ts] Getting local D1 DB (SQLite)');
 		const basePath = path.resolve('.wrangler');
-		const dbFile = fs
-			.readdirSync(basePath, { encoding: 'utf-8', recursive: true })
-			.find((f) => f.endsWith('.sqlite'));
+		const dotWranglerFiles = fs.readdirSync(basePath, {
+			encoding: 'utf-8',
+			recursive: true,
+		});
+		const sqliteFiles = dotWranglerFiles.filter((f) => f.endsWith('.sqlite'));
+		const dbFile = sqliteFiles[sqliteFiles.length - 1];
+
+		console.log(`[drizzle.config.ts] DB file: .wrangler/${dbFile}`);
+		console.log();
 
 		if (!dbFile) {
 			throw new Error(`.sqlite file not found in ${basePath}`);
@@ -26,7 +34,7 @@ export default defineConfig({
 	out: './src/db/migrations',
 	schema: './src/db/schema.ts',
 	dialect: 'sqlite',
-	...(process.env.NODE_ENV === 'production'
+	...(process.env.ENVIRONMENT === 'production'
 		? {
 				driver: 'd1-http',
 				dbCredentials: {
