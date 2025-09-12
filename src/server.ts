@@ -1,13 +1,14 @@
-import { Hono } from 'hono';
+import { createFactory } from 'hono/factory';
 import { trimTrailingSlash } from 'hono/trailing-slash';
 import { cors } from 'hono/cors';
 
 import { shipmentsRouter } from '@modules/shipments';
 import { dbSeedingRouter } from '@modules/db-seeding';
-import type { HonoEnv } from '@modules/hono';
+
+export const honoFactory = createFactory<{ Bindings: CloudflareBindings }>();
 
 export function createServerApp() {
-	const app = new Hono<HonoEnv>().basePath('/api');
+	const app = honoFactory.createApp().basePath('/api');
 	app.use(trimTrailingSlash());
 	app.use(
 		cors({
@@ -32,7 +33,7 @@ export function createServerApp() {
 }
 
 function createV1Router() {
-	const v1Router = new Hono<HonoEnv>();
+	const v1Router = honoFactory.createApp();
 	v1Router.get('/health-check', (c) => c.json({ message: 'OK' }));
 
 	v1Router.route('/', dbSeedingRouter);

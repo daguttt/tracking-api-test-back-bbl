@@ -1,13 +1,12 @@
-import { Hono } from 'hono';
 import { drizzle } from 'drizzle-orm/d1';
 
-import type { HonoEnv } from '@modules/hono';
+import { honoFactory } from '@/server';
 
 import { seedShipments } from './shipments.seeder';
 import { seedUnits } from './units.seeder';
 import { seedCheckpoints } from './checkpoints.seeder';
 
-export const router = new Hono<HonoEnv>();
+export const router = honoFactory.createApp();
 
 router.get('/seed', async (c) => {
 	const db = drizzle(c.env.DB, { casing: 'snake_case' });

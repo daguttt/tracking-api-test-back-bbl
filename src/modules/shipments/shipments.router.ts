@@ -1,8 +1,9 @@
 import { shipments } from '@db/schema';
 import { drizzle } from 'drizzle-orm/d1';
-import { Hono } from 'hono';
 
-export const router = new Hono<{ Bindings: CloudflareBindings }>();
+import { honoFactory } from '@/server';
+
+export const router = honoFactory.createApp();
 
 router.get('/shipments', async (c) => {
 	const db = drizzle(c.env.DB);
