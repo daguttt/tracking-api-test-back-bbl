@@ -6,35 +6,35 @@ const timestamps = {
 	createdAt: text('created_at').default(sql`(current_timestamp)`),
 };
 
-export const shipmentsTable = sqliteTable('shipments', {
+export const shipments = sqliteTable('shipments', {
 	id: text()
 		.$defaultFn(() => crypto.randomUUID())
 		.primaryKey(),
 	...timestamps,
 });
 
-export const shipmentsRelations = relations(shipmentsTable, ({ many }) => ({
-	units: many(unitsTable),
+export const shipmentsRelations = relations(shipments, ({ many }) => ({
+	units: many(units),
 }));
 
-export const unitsTable = sqliteTable('units', {
+export const units = sqliteTable('units', {
 	id: text()
 		.$defaultFn(() => crypto.randomUUID())
 		.primaryKey(),
 	shipmentId: text('shipment_id')
 		.notNull()
-		.references(() => shipmentsTable.id),
+		.references(() => shipments.id),
 	...timestamps,
 });
 
-export const unitRelations = relations(unitsTable, ({ one }) => ({
-	shipment: one(shipmentsTable, {
-		fields: [unitsTable.shipmentId],
-		references: [shipmentsTable.id],
+export const unitRelations = relations(units, ({ one }) => ({
+	shipment: one(shipments, {
+		fields: [units.shipmentId],
+		references: [shipments.id],
 	}),
 }));
 
-export const checkpointsTable = sqliteTable('checkpoints', {
+export const checkpoints = sqliteTable('checkpoints', {
 	id: text()
 		.$defaultFn(() => crypto.randomUUID())
 		.primaryKey(),
@@ -51,15 +51,15 @@ export const checkpointsTable = sqliteTable('checkpoints', {
 	}).notNull(),
 	unitId: text('unit_id')
 		.notNull()
-		.references(() => unitsTable.id),
+		.references(() => units.id),
 	...timestamps,
 });
 
-export type Checkpoint = typeof checkpointsTable.$inferSelect;
+export type Checkpoint = typeof checkpoints.$inferSelect;
 
-export const checkpointsRelations = relations(checkpointsTable, ({ one }) => ({
-	unit: one(unitsTable, {
-		fields: [checkpointsTable.unitId],
-		references: [unitsTable.id],
+export const checkpointsRelations = relations(checkpoints, ({ one }) => ({
+	unit: one(units, {
+		fields: [checkpoints.unitId],
+		references: [units.id],
 	}),
 }));

@@ -1,6 +1,6 @@
 import type { DrizzleD1Database } from 'drizzle-orm/d1';
 
-import { unitsTable } from '@db/schema';
+import { units } from '@db/schema';
 import { logger } from '@modules/logging';
 
 const loggingPrefix = '[SEED_UNITS]';
@@ -29,13 +29,13 @@ export async function seedUnits(
 	];
 
 	const insertedUnitIds = await db
-		.insert(unitsTable)
+		.insert(units)
 		.values([
 			...firstShipmentUnits,
 			...secondShipmentUnits,
 			...thirdShipmentUnits,
 		])
-		.returning({ id: unitsTable.id });
+		.returning({ id: units.id });
 
 	logger.info(`${loggingPrefix} Seeded units successfully`);
 

@@ -1,6 +1,6 @@
 import type { DrizzleD1Database } from 'drizzle-orm/d1';
 
-import { checkpointsTable, Checkpoint } from '@db/schema';
+import { checkpoints, Checkpoint } from '@db/schema';
 import { logger } from '@modules/logging';
 
 const loggingPrefix = '[SEED_CHECKPOINTS]';
@@ -19,7 +19,7 @@ export async function seedCheckpoints(
 			}) satisfies Partial<Checkpoint>
 	);
 
-	await db.insert(checkpointsTable).values(createdCheckpointsForUnits);
+	await db.insert(checkpoints).values(createdCheckpointsForUnits);
 
 	logger.info(`${loggingPrefix} Seeded checkpoints successfully`);
 }

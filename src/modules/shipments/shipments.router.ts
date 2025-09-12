@@ -1,4 +1,4 @@
-import { shipmentsTable } from '@db/schema';
+import { shipments } from '@db/schema';
 import { drizzle } from 'drizzle-orm/d1';
 import { Hono } from 'hono';
 
@@ -7,7 +7,7 @@ export const router = new Hono<{ Bindings: CloudflareBindings }>();
 router.get('/shipments', async (c) => {
 	const db = drizzle(c.env.DB);
 
-	const fetchedShipments = await db.select().from(shipmentsTable);
+	const fetchedShipments = await db.select().from(shipments);
 
 	return c.json(fetchedShipments);
 });
