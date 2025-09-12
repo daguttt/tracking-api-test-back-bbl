@@ -5,6 +5,7 @@ import { cors } from 'hono/cors';
 import { shipmentsRouter } from '@modules/shipments';
 import { dbSeedingRouter } from '@modules/db-seeding';
 import type { HonoEnv } from '@modules/hono';
+import { logger } from 'hono/logger';
 
 export function createServerApp() {
 	const app = new Hono<HonoEnv>().basePath('/api');
@@ -24,6 +25,9 @@ export function createServerApp() {
 			maxAge: 600,
 			credentials: true,
 		})
+	);
+	app.use('*', async (c, next) =>
+		c.env.ENVIRONMENT === 'production' ? await logger()(c, next) : await next()
 	);
 
 	app.route('/v1', createV1Router());
