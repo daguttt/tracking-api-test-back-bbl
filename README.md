@@ -37,9 +37,8 @@ pnpm i
 cp .env.example .env
 ```
     
-2. Modify the environment variables:
-    - `LOGGING_LEVEL`: set your desired logging level (`"debug" | "info" | "warn" | "error"`). Default is `"debug"`.
-    - `ENVIRONMENT`: Possible values are `"development" | "production"`. Default is `"development"`.
+2. Modify environment variables:
+    - `DRIZZLE_ENVIRONMENT`: Possible values are `"development" | "production"`. Default is `"development"`. This variable is used to determine which database to use.
 
     The variables below can be asked to the project owner:
     - `CLOUDFLARE_ACCOUNT_ID`: Cloudflare account ID.

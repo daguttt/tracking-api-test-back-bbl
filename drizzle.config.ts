@@ -34,7 +34,7 @@ export default defineConfig({
 	out: './src/db/migrations',
 	schema: './src/db/schema.ts',
 	dialect: 'sqlite',
-	...(process.env.ENVIRONMENT === 'production'
+	...(process.env.DRIZZLE_ENVIRONMENT === 'production'
 		? {
 				driver: 'd1-http',
 				dbCredentials: {

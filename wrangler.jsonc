@@ -23,10 +23,18 @@
 			"enabled": true,
 		},
 	},
-
-	// "vars": {
-	//   "MY_VAR": "my-variable"
-	// },
+	"vars": {
+		"ENVIRONMENT": "production",
+		"LOGGING_LEVEL": "info",
+	},
+	"env": {
+		"dev": {
+			"vars": {
+				"ENVIRONMENT": "development",
+				"LOGGING_LEVEL": "debug",
+			},
+		},
+	},
 	// "kv_namespaces": [
 	//   {
 	//     "binding": "MY_KV_NAMESPACE",
@@ -49,8 +57,4 @@
 	// "ai": {
 	//   "binding": "AI"
 	// },
-	// "observability": {
-	//   "enabled": true,
-	//   "head_sampling_rate": 1
-	// }
 }
