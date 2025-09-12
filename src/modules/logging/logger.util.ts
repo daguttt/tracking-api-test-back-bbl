@@ -1,4 +1,5 @@
 import type { LogLevelLabel } from './log-level-label.model';
+import { checkAvailabilityToLog } from './check-availability-to-log';
 
 export const logger = {
 	log,
@@ -9,22 +10,52 @@ export const logger = {
 };
 
 function log(logLevel: LogLevelLabel, ...args: object[]) {
+	const canLog = checkAvailabilityToLog({
+		targetLevel: logLevel,
+	});
+
+	if (!canLog) return;
+
 	_log(logLevel, ...args);
 }
 
 function debug(...args: unknown[]) {
+	const canLog = checkAvailabilityToLog({
+		targetLevel: 'debug',
+	});
+
+	if (!canLog) return;
+
 	_log('debug', ...args);
 }
 
 function info(...args: unknown[]) {
+	const canLog = checkAvailabilityToLog({
+		targetLevel: 'info',
+	});
+
+	if (!canLog) return;
+
 	_log('info', ...args);
 }
 
 function warn(...args: unknown[]) {
+	const canLog = checkAvailabilityToLog({
+		targetLevel: 'warn',
+	});
+
+	if (!canLog) return;
+
 	_log('warn', ...args);
 }
 
 function error(...args: unknown[]) {
+	const canLog = checkAvailabilityToLog({
+		targetLevel: 'error',
+	});
+
+	if (!canLog) return;
+
 	_log('error', ...args);
 }
 
