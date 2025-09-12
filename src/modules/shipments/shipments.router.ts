@@ -5,7 +5,7 @@ import { honoFactory } from '@/server';
 
 export const router = honoFactory.createApp();
 
-router.get('/shipments', async (c) => {
+router.get('/', async (c) => {
 	const db = drizzle(c.env.DB);
 
 	const fetchedShipments = await db.select().from(shipments);

@@ -8,7 +8,7 @@ import { seedCheckpoints } from './checkpoints.seeder';
 
 export const router = honoFactory.createApp();
 
-router.get('/seed', async (c) => {
+router.get('/', async (c) => {
 	const db = drizzle(c.env.DB, { casing: 'snake_case' });
 
 	const { insertedShipmentIds } = await seedShipments(db);

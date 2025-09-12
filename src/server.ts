@@ -36,9 +36,9 @@ function createV1Router() {
 	const v1Router = honoFactory.createApp();
 	v1Router.get('/health-check', (c) => c.json({ message: 'OK' }));
 
-	v1Router.route('/', dbSeedingRouter);
+	v1Router.route('/seed', dbSeedingRouter);
 
-	v1Router.route('/', shipmentsRouter);
+	v1Router.route('/shipments', shipmentsRouter);
 
 	return v1Router;
 }
