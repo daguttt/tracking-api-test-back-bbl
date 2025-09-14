@@ -13,6 +13,8 @@ export const shipments = sqliteTable('shipments', {
 	...timestamps,
 });
 
+export type Shipment = typeof shipments.$inferSelect;
+
 export const shipmentsRelations = relations(shipments, ({ many }) => ({
 	units: many(units),
 }));
@@ -26,6 +28,8 @@ export const units = sqliteTable('units', {
 		.references(() => shipments.id),
 	...timestamps,
 });
+
+export type Unit = typeof units.$inferSelect;
 
 export const unitRelations = relations(units, ({ one }) => ({
 	shipment: one(shipments, {

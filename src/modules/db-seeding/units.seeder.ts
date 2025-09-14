@@ -1,43 +1,51 @@
-import type { DrizzleD1Database } from 'drizzle-orm/d1';
+import { inject, injectable } from 'tsyringe';
 
-import { units } from '@db/schema';
-import { logger } from '@modules/logging';
+import { loggerToken, type Logger } from '@modules/logging';
+import {
+	unitsRepositoryToken,
+	type UnitsRepository,
+} from '@modules/shipments/units.repository';
 
 const loggingPrefix = '[SEED_UNITS]';
 
-export async function seedUnits(
-	db: DrizzleD1Database,
-	{ shipmentIds }: { shipmentIds: string[] }
-) {
-	logger.info(`${loggingPrefix} Seeding units...`);
+@injectable()
+export class UnitsSeeder {
+	constructor(
+		@inject(loggerToken)
+		private readonly logger: Logger,
+		@inject(unitsRepositoryToken)
+		private readonly unitsRepository: UnitsRepository
+	) {}
 
-	const firstShipmentUnits = [
-		{ shipmentId: shipmentIds[0] },
-		{ shipmentId: shipmentIds[0] },
-		{ shipmentId: shipmentIds[0] },
-	];
+	seed(shipmentIds: string[]) {
+		this.logger.info(`${loggingPrefix} Seeding units...`);
 
-	const secondShipmentUnits = [
-		{ shipmentId: shipmentIds[1] },
-		{ shipmentId: shipmentIds[1] },
-	];
+		const firstShipmentUnits = [
+			{ shipmentId: shipmentIds[0] },
+			{ shipmentId: shipmentIds[0] },
+			{ shipmentId: shipmentIds[0] },
+		];
 
-	const thirdShipmentUnits = [
-		{ shipmentId: shipmentIds[2] },
-		{ shipmentId: shipmentIds[2] },
-		{ shipmentId: shipmentIds[2] },
-	];
+		const secondShipmentUnits = [
+			{ shipmentId: shipmentIds[1] },
+			{ shipmentId: shipmentIds[1] },
+		];
 
-	const insertedUnitIds = await db
-		.insert(units)
-		.values([
+		const thirdShipmentUnits = [
+			{ shipmentId: shipmentIds[2] },
+			{ shipmentId: shipmentIds[2] },
+			{ shipmentId: shipmentIds[2] },
+		];
+
+		const allUnits = [
 			...firstShipmentUnits,
 			...secondShipmentUnits,
 			...thirdShipmentUnits,
-		])
-		.returning({ id: units.id });
+		];
 
-	logger.info(`${loggingPrefix} Seeded units successfully`);
+		const repositoryResult = this.unitsRepository.createBulk(allUnits);
+		this.logger.info(`${loggingPrefix} Seeded units successfully`);
 
-	return { insertedUnitIds };
+		return repositoryResult;
+	}
 }

@@ -8,11 +8,13 @@
 		"lib": ["ESNext"],
 		"jsx": "react-jsx",
 		"jsxImportSource": "hono/jsx",
+		"experimentalDecorators": true,
 		"baseUrl": "./src",
 		"paths": {
 			"@/*": ["*"],
 			"@modules/*": ["modules/*"],
-			"@db/*": ["db/*"]
+			"@db/*": ["db/*"],
+			"@lib/*": ["lib/*"]
 		}
 	}
 }

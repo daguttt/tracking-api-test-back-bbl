@@ -1,7 +1,7 @@
 import { shipments } from '@db/schema';
 import { drizzle } from 'drizzle-orm/d1';
 
-import { honoFactory } from '@/server';
+import { honoFactory } from '@/factory';
 
 export const router = honoFactory.createApp();
 

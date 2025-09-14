@@ -1,1 +1,1 @@
-export { logger } from './logger.util';
+export { logger, loggerToken, type Logger } from './logger.util';

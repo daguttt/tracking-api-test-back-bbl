@@ -1,24 +1,31 @@
-import type { DrizzleD1Database } from 'drizzle-orm/d1';
+import { inject, injectable } from 'tsyringe';
 
-import { shipments } from '@db/schema';
-import { logger } from '@modules/logging';
+import {
+	shipmentsRepositoryToken,
+	type ShipmentsRepository,
+} from '@modules/shipments';
+import { loggerToken, type Logger } from '@modules/logging';
 
 const loggingPrefix = '[SEED_SHIPMENTS]';
 
-export async function seedShipments(db: DrizzleD1Database) {
-	logger.info(`${loggingPrefix} Seeding shipments...`);
+@injectable()
+export class ShipmentSeeder {
+	constructor(
+		@inject(loggerToken)
+		private readonly logger: Logger,
+		@inject(shipmentsRepositoryToken)
+		private readonly shipmentsRepository: ShipmentsRepository
+	) {}
 
-	/*
-	 * This will use the default values defined in the schema
-	 * inserting the same amount of rows as elements in the array
-	 */
-	const shipmentsSeed = [{}, {}, {}];
-	const insertedShipmentIds = await db
-		.insert(shipments)
-		.values(shipmentsSeed)
-		.returning({ id: shipments.id });
+	seed() {
+		this.logger.info(`${loggingPrefix} Seeding shipments...`);
+		/*
+		 * This will use the default values defined in the schema
+		 * inserting the same amount of rows as elements in the array
+		 */
+		const repositoryResult = this.shipmentsRepository.createBulk([{}, {}, {}]);
+		this.logger.info(`${loggingPrefix} Seeded shipments successfully`);
 
-	logger.info(`${loggingPrefix} Seeded shipments successfully`);
-
-	return { insertedShipmentIds };
+		return repositoryResult;
+	}
 }

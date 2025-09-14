@@ -1,6 +1,9 @@
 import type { LogLevelLabel } from './log-level-label.model';
 import { checkAvailabilityToLog } from './check-availability-to-log';
 
+export const loggerToken = Symbol('Logger');
+
+export type Logger = typeof logger;
 export const logger = {
 	log,
 	debug,

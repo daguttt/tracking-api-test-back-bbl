@@ -1,25 +1,32 @@
-import type { DrizzleD1Database } from 'drizzle-orm/d1';
+import { inject, injectable } from 'tsyringe';
 
-import { checkpoints, Checkpoint } from '@db/schema';
 import { logger } from '@modules/logging';
+import {
+	checkpointsRepositoryToken,
+	type CheckpointsRepository,
+} from '@/modules/shipments/checkpoints.repository';
 
 const loggingPrefix = '[SEED_CHECKPOINTS]';
 
-export async function seedCheckpoints(
-	db: DrizzleD1Database,
-	{ unitIds }: { unitIds: string[] }
-) {
-	logger.info(`${loggingPrefix} Seeding checkpoints...`);
+@injectable()
+export class CheckpointsSeeder {
+	constructor(
+		@inject(checkpointsRepositoryToken)
+		private readonly checkpointsRepository: CheckpointsRepository
+	) {}
 
-	const createdCheckpointsForUnits = unitIds.map(
-		(unitId) =>
-			({
-				unitId,
-				status: 'CREATED' as const,
-			}) satisfies Partial<Checkpoint>
-	);
+	seed(unitIds: string[]) {
+		logger.info(`${loggingPrefix} Seeding checkpoints...`);
 
-	await db.insert(checkpoints).values(createdCheckpointsForUnits);
+		const checkpointsToCreateForUnits = unitIds.map((unitId) => ({
+			unitId,
+			status: 'CREATED' as const,
+		}));
 
-	logger.info(`${loggingPrefix} Seeded checkpoints successfully`);
+		const repositoryResult = this.checkpointsRepository.createBulk(
+			checkpointsToCreateForUnits
+		);
+		logger.info(`${loggingPrefix} Seeded checkpoints successfully`);
+		return repositoryResult;
+	}
 }

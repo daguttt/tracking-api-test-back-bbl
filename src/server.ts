@@ -1,11 +1,13 @@
-import { createFactory } from 'hono/factory';
+import 'reflect-metadata/lite';
+
 import { trimTrailingSlash } from 'hono/trailing-slash';
 import { cors } from 'hono/cors';
 
 import { shipmentsRouter } from '@modules/shipments';
 import { dbSeedingRouter } from '@modules/db-seeding';
 
-export const honoFactory = createFactory<{ Bindings: CloudflareBindings }>();
+import { honoFactory } from './factory';
+import { setupDIContainer } from './dependency-injection';
 
 export function createServerApp() {
 	const app = honoFactory.createApp().basePath('/api');
@@ -26,6 +28,8 @@ export function createServerApp() {
 			credentials: true,
 		})
 	);
+
+	setupDIContainer(app);
 
 	app.route('/v1', createV1Router());
 

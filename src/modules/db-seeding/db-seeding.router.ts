@@ -1,23 +1,16 @@
-import { drizzle } from 'drizzle-orm/d1';
+import { honoFactory } from '@/factory';
 
-import { honoFactory } from '@/server';
-
-import { seedShipments } from './shipments.seeder';
-import { seedUnits } from './units.seeder';
-import { seedCheckpoints } from './checkpoints.seeder';
+import { DbSeedingService } from './db-seeding.service';
 
 export const router = honoFactory.createApp();
 
 router.get('/', async (c) => {
-	const db = drizzle(c.env.DB, { casing: 'snake_case' });
+	const dbSeedingService = c.var.resolve(DbSeedingService);
+	const result = await dbSeedingService.seed();
 
-	const { insertedShipmentIds } = await seedShipments(db);
-	const { insertedUnitIds } = await seedUnits(db, {
-		shipmentIds: insertedShipmentIds.map((shipment) => shipment.id),
-	});
-	await seedCheckpoints(db, {
-		unitIds: insertedUnitIds.map((unit) => unit.id),
-	});
+	if (result.isErr()) {
+		return c.json({ message: 'Error seeding database' }, 500);
+	}
 
-	return c.json({ message: 'OK', insertedShipmentIds });
+	return c.json({ message: 'OK' });
 });
