@@ -18,7 +18,6 @@ Deployed version available: https://tracking-api-test-back-bbl.daguttt.workers.d
     - Install it using [fnm](https://github.com/Schniz/fnm) (*Recommended*)
 - Package Manager: [pnpm](https://pnpm.io/es/installation)
     - Check out **_why_** and how to install it [here](https://gist.github.com/daguttt/89adeb45ef3cf6483c394e135ce6e9ec)
-- Sign up for a [Cloudflare account](https://dash.cloudflare.com/sign-up/workers-and-pages)
 
 ### Running the project
 #### 1. Clone the repo
