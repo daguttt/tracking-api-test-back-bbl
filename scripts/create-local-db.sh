@@ -17,7 +17,7 @@ echo "\n[CREATE_LOCAL_DB] Starting dev server in the background (with PID $DEV_P
 MAX_RETRIES=10
 RETRIES=0
 
-until curl -s -o /dev/null http://localhost:8787/api/v1/shipments; do
+until curl -s -o /dev/null http://localhost:8787/api/v1/health-check; do
   RETRIES=$((RETRIES + 1))
   if [ "$RETRIES" -ge "$MAX_RETRIES" ]; then
     echo "\n[CREATE_LOCAL_DB] Dev server did not become ready in time."
