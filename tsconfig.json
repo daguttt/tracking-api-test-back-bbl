@@ -11,10 +11,10 @@
 		"experimentalDecorators": true,
 		"baseUrl": "./src",
 		"paths": {
-			"@/*": ["*"],
 			"@modules/*": ["modules/*"],
 			"@db/*": ["db/*"],
-			"@lib/*": ["lib/*"]
+			"@lib/*": ["lib/*"],
+			"@/*": ["*"]
 		}
 	}
 }

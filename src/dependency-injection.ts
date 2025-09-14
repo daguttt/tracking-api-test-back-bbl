@@ -1,22 +1,24 @@
 import type { Hono } from 'hono';
 import { createMiddleware } from 'hono/factory';
+import { container, type DependencyContainer } from 'tsyringe';
+import { drizzle } from 'drizzle-orm/d1';
 
 import type { HonoEnv } from '@/factory';
 import { logger, loggerToken } from '@modules/logging';
-
-import { container, type DependencyContainer } from 'tsyringe';
-import { drizzle, type DrizzleD1Database } from 'drizzle-orm/d1';
-
 import { dbToken } from '@db/db.token';
+import * as dbSchema from '@db/schema';
 import {
-	D1CheckpointsRepository,
 	checkpointsRepositoryToken,
-} from '@modules/shipments';
-import {
+	D1CheckpointsRepository,
 	D1ShipmentsRepository,
+	D1UnitsRepository,
 	shipmentsRepositoryToken,
+	unitsRepositoryToken,
+} from '@modules/shipments/repositories';
+import {
+	CheckpointsServiceLive,
+	checkpointsServiceToken,
 } from '@modules/shipments';
-import { D1UnitsRepository, unitsRepositoryToken } from '@modules/shipments';
 
 function tsyringeMiddleware(
 	...providers: ((container: DependencyContainer) => void)[]
@@ -35,8 +37,8 @@ export function setupDIContainer(app: Hono<HonoEnv>) {
 			container.register(loggerToken, { useValue: logger });
 
 			// Register D1 database
-			const db = drizzle(c.env.DB, { casing: 'snake_case' });
-			container.register<DrizzleD1Database>(dbToken, { useValue: db });
+			const db = drizzle(c.env.DB, { casing: 'snake_case', schema: dbSchema });
+			container.register(dbToken, { useValue: db });
 
 			// Register repositories
 			container.register(shipmentsRepositoryToken, {
@@ -45,6 +47,10 @@ export function setupDIContainer(app: Hono<HonoEnv>) {
 			container.register(unitsRepositoryToken, { useClass: D1UnitsRepository });
 			container.register(checkpointsRepositoryToken, {
 				useClass: D1CheckpointsRepository,
+			});
+
+			container.register(checkpointsServiceToken, {
+				useClass: CheckpointsServiceLive,
 			});
 		})(c, next);
 	});

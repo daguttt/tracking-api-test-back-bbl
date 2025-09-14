@@ -4,7 +4,7 @@ import { logger } from '@modules/logging';
 import {
 	checkpointsRepositoryToken,
 	type CheckpointsRepository,
-} from '@/modules/shipments/checkpoints.repository';
+} from '@modules/shipments/repositories';
 
 const loggingPrefix = '[SEED_CHECKPOINTS]';
 

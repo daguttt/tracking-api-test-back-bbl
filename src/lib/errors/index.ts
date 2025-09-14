@@ -1,2 +1,2 @@
 export { BaseError } from './base-error.model';
-export { DBError } from './db-errors.model';
+export { DBError, EntityNotFoundError } from './db-errors.model';

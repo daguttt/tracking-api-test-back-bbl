@@ -3,7 +3,7 @@ import { inject, injectable } from 'tsyringe';
 import {
 	shipmentsRepositoryToken,
 	type ShipmentsRepository,
-} from '@modules/shipments';
+} from '@modules/shipments/repositories';
 import { loggerToken, type Logger } from '@modules/logging';
 
 const loggingPrefix = '[SEED_SHIPMENTS]';

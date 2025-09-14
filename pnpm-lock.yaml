@@ -11,6 +11,9 @@ importers:
       '@hono/tsyringe':
         specifier: 1.0.1
         version: 1.0.1(hono@4.9.6)(tsyringe@4.10.0)
+      '@hono/zod-validator':
+        specifier: 0.7.2
+        version: 0.7.2(hono@4.9.6)(zod@4.1.8)
       '@libsql/client':
         specifier: 0.15.15
         version: 0.15.15
@@ -29,6 +32,9 @@ importers:
       tsyringe:
         specifier: 4.10.0
         version: 4.10.0
+      zod:
+        specifier: 4.1.8
+        version: 4.1.8
     devDependencies:
       '@eslint/js':
         specifier: 9.35.0
@@ -446,6 +452,12 @@ packages:
     peerDependencies:
       hono: '>=4.*'
       tsyringe: '>=4.*'
+
+  '@hono/zod-validator@0.7.2':
+    resolution: {integrity: sha512-ub5eL/NeZ4eLZawu78JpW/J+dugDAYhwqUIdp9KYScI6PZECij4Hx4UsrthlEUutqDDhPwRI0MscUfNkvn/mqQ==}
+    peerDependencies:
+      hono: '>=3.9.0'
+      zod: ^3.25.0 || ^4.0.0
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -1439,6 +1451,9 @@ packages:
   zod@3.22.3:
     resolution: {integrity: sha512-EjIevzuJRiRPbVH4mGc8nApb/lVLKVpmUhAaR5R5doKGfAnGJ6Gr3CViAVjP+4FWSxCsybeWQdcgCtbX+7oZug==}
 
+  zod@4.1.8:
+    resolution: {integrity: sha512-5R1P+WwQqmmMIEACyzSvo4JXHY5WiAFHRMg+zBZKgKS+Q1viRa0C1hmUKtHltoIFKtIdki3pRxkmpP74jnNYHQ==}
+
 snapshots:
 
   '@cloudflare/kv-asset-handler@0.4.0':
@@ -1676,6 +1691,11 @@ snapshots:
     dependencies:
       hono: 4.9.6
       tsyringe: 4.10.0
+
+  '@hono/zod-validator@0.7.2(hono@4.9.6)(zod@4.1.8)':
+    dependencies:
+      hono: 4.9.6
+      zod: 4.1.8
 
   '@humanfs/core@0.19.1': {}
 
@@ -2613,3 +2633,5 @@ snapshots:
       youch-core: 0.3.3
 
   zod@3.22.3: {}
+
+  zod@4.1.8: {}

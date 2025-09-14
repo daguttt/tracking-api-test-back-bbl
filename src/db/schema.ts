@@ -38,20 +38,21 @@ export const unitRelations = relations(units, ({ one }) => ({
 	}),
 }));
 
+export const checkpointStatusValues = [
+	'CREATED',
+	'PICKED_UP',
+	'IN_TRANSIT',
+	'AT_FACILITY',
+	'OUT_FOR_DELIVERY',
+	'DELIVERED',
+	'EXCEPTION',
+] as const;
 export const checkpoints = sqliteTable('checkpoints', {
 	id: text()
 		.$defaultFn(() => crypto.randomUUID())
 		.primaryKey(),
 	status: text({
-		enum: [
-			'CREATED',
-			'PICKED_UP',
-			'IN_TRANSIT',
-			'AT_FACILITY',
-			'OUT_FOR_DELIVERY',
-			'DELIVERED',
-			'EXCEPTION',
-		],
+		enum: checkpointStatusValues,
 	}).notNull(),
 	unitId: text('unit_id')
 		.notNull()

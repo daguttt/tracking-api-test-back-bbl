@@ -4,7 +4,7 @@ import { loggerToken, type Logger } from '@modules/logging';
 import {
 	unitsRepositoryToken,
 	type UnitsRepository,
-} from '@modules/shipments/units.repository';
+} from '@modules/shipments/repositories';
 
 const loggingPrefix = '[SEED_UNITS]';
 
