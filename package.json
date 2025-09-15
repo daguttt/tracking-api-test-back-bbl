@@ -6,7 +6,7 @@
     "dev:stage-2": "pnpm --filter @apps/stage-2 dev"
   },
   "keywords": [],
-  "author": "",
+  "author": "daguttt",
   "license": "ISC",
   "packageManager": "pnpm@10.9.0",
   "devDependencies": {

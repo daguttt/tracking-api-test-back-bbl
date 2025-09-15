@@ -1,0 +1,10 @@
+{
+  "name": "stage-2",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {},
+  "keywords": [],
+  "author": "daguttt",
+  "license": "ISC",
+  "packageManager": "pnpm@10.9.0"
+}
