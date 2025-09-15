@@ -8,10 +8,8 @@ import {
 } from '@modules/shipments/repositories';
 import { ShipmentNotFoundError } from '@modules/shipments/errors';
 import type { ShipmentWithHistory } from '@modules/shipments';
-import type {
-	UnitWithCheckpoints,
-	UnitWithCurrentStatusAndCheckpoints,
-} from './unit-with-checkpoints.model';
+import type { UnitWithCurrentStatusAndCheckpoints } from './unit-with-checkpoints.model';
+import { appendCurrentStatusToShipmentUnits } from './apprend-current-status-to-units.util';
 
 export const trackingServiceToken = Symbol('TrackingService');
 export interface TrackingService {
@@ -42,19 +40,6 @@ export class TrackingServiceLive implements TrackingService {
 						)
 					: err(error)
 			)
-			.map(this.appendCurrentStatusToUnits);
-	}
-
-	private appendCurrentStatusToUnits(
-		shipment: ShipmentWithHistory<UnitWithCheckpoints>
-	) {
-		shipment.units = shipment.units.map((unit) => {
-			const lastCheckpoint = unit.checkpoints[unit.checkpoints.length - 1];
-			return {
-				...unit,
-				currentStatus: lastCheckpoint.status,
-			} satisfies UnitWithCurrentStatusAndCheckpoints;
-		});
-		return shipment as ShipmentWithHistory<UnitWithCurrentStatusAndCheckpoints>;
+			.map(appendCurrentStatusToShipmentUnits);
 	}
 }

@@ -1,18 +1,27 @@
-import { shipments } from '@db/schema';
-import { drizzle } from 'drizzle-orm/d1';
-
 import { honoFactory } from '@/factory';
+import {
+	shipmentsServiceToken,
+	type ShipmentsService,
+} from './shipments.service';
 
 export const router = honoFactory.createApp();
 
 router.get('/', async (c) => {
-	const db = drizzle(c.env.DB);
+	const shipmentsService = c.var.resolve<ShipmentsService>(
+		shipmentsServiceToken
+	);
+	const result = await shipmentsService.findAll();
 
-	const fetchedShipments = await db.select().from(shipments);
+	if (result.isErr()) {
+		const error = result.error;
 
-	return c.json(fetchedShipments);
+		switch (error._tag) {
+			case 'DBError':
+			default: {
+				return c.json({ message: 'Error getting shipments' }, 500);
+			}
+		}
+	}
+
+	return c.json(result.value);
 });
-
-router.get('/tracking/:trackingId', (c) => c.json({ message: 'OK' }));
-
-router.post('/checkpoints', (c) => c.json({ message: 'OK' }));

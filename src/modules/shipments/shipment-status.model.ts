@@ -1,0 +1,10 @@
+export type ShipmentStatus =
+	| 'CREATED'
+	| 'IN_PROGRESS'
+	| 'PICKED_UP'
+	| 'IN_TRANSIT'
+	| 'AT_FACILITY'
+	| 'OUT_FOR_DELIVERY'
+	| 'DELIVERED'
+	| 'PARTIALLY_DELIVERED'
+	| 'EXCEPTION';

@@ -10,3 +10,8 @@ export {
 } from './checkpoints.service';
 
 export { trackingServiceToken, TrackingServiceLive } from './tracking.service';
+
+export {
+	shipmentsServiceToken,
+	ShipmentsServiceLive,
+} from './shipments.service';

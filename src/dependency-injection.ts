@@ -20,6 +20,8 @@ import {
 	checkpointsServiceToken,
 	TrackingServiceLive,
 	trackingServiceToken,
+	ShipmentsServiceLive,
+	shipmentsServiceToken,
 } from '@modules/shipments';
 
 function tsyringeMiddleware(
@@ -56,6 +58,10 @@ export function setupDIContainer(app: Hono<HonoEnv>) {
 			});
 			container.register(trackingServiceToken, {
 				useClass: TrackingServiceLive,
+			});
+
+			container.register(shipmentsServiceToken, {
+				useClass: ShipmentsServiceLive,
 			});
 		})(c, next);
 	});

@@ -24,6 +24,8 @@ export interface ShipmentsRepository {
 		ShipmentWithHistory<UnitWithCheckpoints>,
 		DBError | EntityNotFoundError
 	>;
+
+	findAll(): ResultAsync<ShipmentWithHistory<UnitWithCheckpoints>[], DBError>;
 }
 
 @injectable()
@@ -76,5 +78,21 @@ export class D1ShipmentsRepository implements ShipmentsRepository {
 				);
 			return ok(shipment);
 		});
+	}
+
+	findAll(): ResultAsync<ShipmentWithHistory<UnitWithCheckpoints>[], DBError> {
+		const query = this.db.query.shipments.findMany({
+			with: {
+				units: {
+					with: {
+						checkpoints: {
+							orderBy: (checkpoints, { desc }) => desc(checkpoints.createdAt),
+							limit: 1,
+						},
+					},
+				},
+			},
+		});
+		return ResultAsync.fromPromise(query, (error) => new DBError(error));
 	}
 }

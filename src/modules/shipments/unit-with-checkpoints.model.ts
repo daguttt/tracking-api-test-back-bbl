@@ -6,5 +6,5 @@ export interface UnitWithCheckpoints extends Unit {
 
 export interface UnitWithCurrentStatusAndCheckpoints
 	extends UnitWithCheckpoints {
-	currentStatus: string;
+	currentStatus: Checkpoint['status'];
 }
