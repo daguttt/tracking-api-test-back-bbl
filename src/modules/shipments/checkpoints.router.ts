@@ -28,15 +28,6 @@ router.post('/', zValidator('json', createCheckpointDtoSchema), async (c) => {
 				);
 			}
 
-			case 'CheckpointWithStatusAlreadyExistsError': {
-				return c.json(
-					{
-						message: `Checkpoint with status '${error.foundStatus}' already exists for unit '${createCheckpointDto.unitId}'`,
-					},
-					409
-				);
-			}
-
 			case 'DBError':
 			default: {
 				return c.json({ message: 'Error creating checkpoint' }, 500);
@@ -44,5 +35,5 @@ router.post('/', zValidator('json', createCheckpointDtoSchema), async (c) => {
 		}
 	}
 
-	return c.json({ message: 'Checkpoint registered successfully' }, 201);
+	return c.body(null, 201);
 });

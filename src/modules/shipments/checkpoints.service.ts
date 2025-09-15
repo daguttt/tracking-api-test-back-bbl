@@ -9,25 +9,18 @@ import {
 	type UnitsRepository,
 } from './repositories/units.repository';
 
-import {
-	CheckpointWithStatusAlreadyExistsError,
-	UnitNotFoundError,
-} from './errors';
+import { UnitNotFoundError } from './errors';
 import {
 	checkpointsRepositoryToken,
 	type CheckpointsRepository,
 } from './repositories';
+import { loggerToken, type Logger } from '@modules/logging';
 
 export const checkpointsServiceToken = Symbol('CheckpointsService');
 export interface CheckpointsService {
 	create(
 		createCheckpointDto: CreateCheckpointDto
-	): Promise<
-		Result<
-			void,
-			UnitNotFoundError | CheckpointWithStatusAlreadyExistsError | DBError
-		>
-	>;
+	): Promise<Result<void, UnitNotFoundError | DBError>>;
 }
 
 @injectable()
@@ -36,17 +29,14 @@ export class CheckpointsServiceLive implements CheckpointsService {
 		@inject(checkpointsRepositoryToken)
 		private readonly checkpointsRepository: CheckpointsRepository,
 		@inject(unitsRepositoryToken)
-		private readonly unitsRepository: UnitsRepository
+		private readonly unitsRepository: UnitsRepository,
+		@inject(loggerToken)
+		private readonly logger: Logger
 	) {}
 
 	async create(
 		createCheckpointDto: CreateCheckpointDto
-	): Promise<
-		Result<
-			void,
-			UnitNotFoundError | CheckpointWithStatusAlreadyExistsError | DBError
-		>
-	> {
+	): Promise<Result<void, UnitNotFoundError | DBError>> {
 		// Check if unit exists
 		const unitResult = await this.unitsRepository.findOne({
 			id: createCheckpointDto.unitId,
@@ -71,16 +61,14 @@ export class CheckpointsServiceLive implements CheckpointsService {
 				unitId: unit.id,
 				status: createCheckpointDto.status,
 			})
-			.andThen((checkpoint) => {
-				return err(
-					CheckpointWithStatusAlreadyExistsError.create({
-						foundStatus: checkpoint.status,
-					})
-				);
-			})
+			.map(() => undefined as void)
 			.orElse((error) => {
 				const shouldCreateCheckpoint = error instanceof EntityNotFoundError;
 				if (!shouldCreateCheckpoint) return err(error);
+
+				this.logger.debug(
+					`[${CheckpointsServiceLive.name}] Creating checkpoint for unit '${unit.id}' with status '${createCheckpointDto.status}'`
+				);
 
 				// Create checkpoint if it doesn't exist
 				// TODO: Validate checkpoint to register has the correct next status (order)

@@ -67,18 +67,19 @@ export class D1CheckpointsRepository implements CheckpointsRepository {
 		unitId: string;
 		status: Checkpoint['status'];
 	}): ResultAsync<Checkpoint, DBError | EntityNotFoundError> {
+		const query = this.db.query.checkpoints.findFirst({
+			where: (checkpoints, { eq, and }) =>
+				and(eq(checkpoints.unitId, unitId), eq(checkpoints.status, status)),
+		});
 		return ResultAsync.fromPromise(
-			this.db.query.checkpoints.findFirst({
-				where: (checkpoints, { eq }) =>
-					eq(checkpoints.unitId, unitId) && eq(checkpoints.status, status),
-			}),
+			query,
 			(error) => new DBError(error)
 		).andThen((checkpoint) => {
 			if (!checkpoint)
 				return err(
 					EntityNotFoundError.create({
 						entityName: 'Checkpoint',
-						message: `Checkpoint not found for unit ${unitId} and status ${status}`,
+						searchedId: unitId,
 					})
 				);
 			return ok(checkpoint);
