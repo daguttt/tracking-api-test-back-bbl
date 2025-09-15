@@ -62,7 +62,10 @@ Key layers within a feature:
   - Services: `ShipmentsServiceLive`, `TrackingServiceLive`, `CheckpointsServiceLive`.
 - This design avoids cross-request state and keeps Worker requests isolated.
 
-### Data layer (Drizzle ORM + Cloudflare D1)
+### Data layer and model (Drizzle ORM + Cloudflare D1)
+- Data model:
+    ![Data model](docs/images/data-model.png)
+
 - Schema is defined in `src/db/schema.ts` with explicit relations and shared timestamps.
 - Repositories encapsulate queries and return `ResultAsync<..., DBError | EntityNotFoundError>`:
   - `ShipmentsRepository` provides `createBulk`, `findAll`, and `findOneWithHistory`.
