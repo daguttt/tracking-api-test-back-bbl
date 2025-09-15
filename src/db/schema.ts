@@ -31,11 +31,12 @@ export const units = sqliteTable('units', {
 
 export type Unit = typeof units.$inferSelect;
 
-export const unitRelations = relations(units, ({ one }) => ({
+export const unitRelations = relations(units, ({ one, many }) => ({
 	shipment: one(shipments, {
 		fields: [units.shipmentId],
 		references: [shipments.id],
 	}),
+	checkpoints: many(checkpoints),
 }));
 
 export const checkpointStatusValues = [

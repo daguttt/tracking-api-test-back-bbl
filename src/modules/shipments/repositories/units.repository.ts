@@ -2,10 +2,10 @@ import { inject, injectable } from 'tsyringe';
 import { err, ok, ResultAsync } from 'neverthrow';
 import type { DrizzleD1Database } from 'drizzle-orm/d1';
 
-import * as dbSchema from '@db/schema';
 import { units, type Unit } from '@db/schema';
-import { DBError, EntityNotFoundError } from '@lib/errors';
 import { dbToken } from '@db/db.token';
+import type { Db } from '@db/index';
+import { DBError, EntityNotFoundError } from '@lib/errors';
 
 export const unitsRepositoryToken = Symbol('UnitsRepository');
 export interface UnitsRepository {
@@ -26,9 +26,7 @@ type RequiredDataForUnit = {
 
 @injectable()
 export class D1UnitsRepository implements UnitsRepository {
-	constructor(
-		@inject(dbToken) private readonly db: DrizzleD1Database<typeof dbSchema>
-	) {}
+	constructor(@inject(dbToken) private readonly db: DrizzleD1Database<Db>) {}
 
 	createBulk(
 		unitsToCreate: RequiredDataForUnit[]

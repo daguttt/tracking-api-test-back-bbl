@@ -3,7 +3,11 @@ import 'reflect-metadata/lite';
 import { trimTrailingSlash } from 'hono/trailing-slash';
 import { cors } from 'hono/cors';
 
-import { checkpointsRouter, shipmentsRouter } from '@modules/shipments';
+import {
+	checkpointsRouter,
+	shipmentsRouter,
+	trackingsRouter,
+} from '@modules/shipments';
 import { dbSeedingRouter } from '@modules/db-seeding';
 
 import { honoFactory } from './factory';
@@ -44,6 +48,7 @@ function createV1Router() {
 
 	v1Router.route('/shipments', shipmentsRouter);
 	v1Router.route('/checkpoints', checkpointsRouter);
+	v1Router.route('/tracking', trackingsRouter);
 
 	return v1Router;
 }

@@ -1,11 +1,11 @@
-import { checkpoints, type Checkpoint } from '@/db/schema';
 import { inject, injectable } from 'tsyringe';
 import { err, ok, ResultAsync } from 'neverthrow';
 import type { DrizzleD1Database } from 'drizzle-orm/d1';
 
 import { DBError, EntityNotFoundError } from '@lib/errors';
 import { dbToken } from '@db/db.token';
-import * as dbSchema from '@db/schema';
+import { checkpoints, type Checkpoint } from '@db/schema';
+import type { Db } from '@db/index';
 
 type RequiredDataForCheckpoint = {
 	unitId: string;
@@ -33,9 +33,7 @@ export interface CheckpointsRepository {
 
 @injectable()
 export class D1CheckpointsRepository implements CheckpointsRepository {
-	constructor(
-		@inject(dbToken) private readonly db: DrizzleD1Database<typeof dbSchema>
-	) {}
+	constructor(@inject(dbToken) private readonly db: DrizzleD1Database<Db>) {}
 
 	createBulk(
 		checkpointsToCreate: Array<RequiredDataForCheckpoint>
