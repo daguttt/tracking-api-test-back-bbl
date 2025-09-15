@@ -147,7 +147,7 @@ cp .env.example .env
 ### 4. Cloudflare Setup
 Create the local D1 (SQLite) database:
 ```bash
-pnpm db:create:dev
+pnpm --filter @apps/stage-1 db:create:dev
 ```
 
 > [!NOTE]
@@ -156,11 +156,11 @@ pnpm db:create:dev
 
 ### 5. Run the development server
 ```bash
-pnpm dev
+pnpm --filter @apps/stage-1 dev
 ```
 
 Seed the database (Only the first time you set up the project)
 ```bash
-pnpm db:seed:dev
+pnpm --filter @apps/stage-1 db:seed:dev
 ```
 
