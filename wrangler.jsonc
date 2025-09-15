@@ -25,13 +25,11 @@
 	},
 	"vars": {
 		"ENVIRONMENT": "production",
-		"LOGGING_LEVEL": "info",
 	},
 	"env": {
 		"dev": {
 			"vars": {
 				"ENVIRONMENT": "development",
-				"LOGGING_LEVEL": "debug",
 			},
 		},
 	},

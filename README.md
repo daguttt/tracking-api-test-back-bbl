@@ -36,7 +36,10 @@ pnpm i
 cp .env.example .env
 ```
     
-2. Modify environment variables. Ask the project owner for the following variables:
+2. Modify environment variables. 
+    - `LOGGING_LEVEL`: set your desired logging level (`"debug" | "info" | "warn" | "error"`). Default is `"debug"`.
+
+    Ask the project owner for the following variables:
     - `CLOUDFLARE_ACCOUNT_ID`: Cloudflare account ID.
     - `CLOUDFLARE_DATABASE_ID`: Cloudflare D1 database ID.
     - `CLOUDFLARE_D1_TOKEN`: Cloudflare D1 token.
