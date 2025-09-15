@@ -5,6 +5,7 @@
 	"scripts": {
 		"dev": "wrangler dev",
 		"deploy": "wrangler deploy --minify",
+		"wrangler": "wrangler",
 		"cf-typegen": "wrangler types --env-interface CloudflareBindings",
 		"format:write": "prettier --write \"**/*.{ts,html,astro,tsx,js,jsx,mdx,jsonc}\" --cache",
 		"format:check": "prettier --check \"**/*.{ts,html,astro,tsx,js,jsx,mdx,jsonc}\" --cache",

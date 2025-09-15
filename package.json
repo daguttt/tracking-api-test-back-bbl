@@ -2,6 +2,8 @@
   "name": "tech-test-tracking-api-monorepo",
   "version": "1.0.0",
   "scripts": {
+    "format:write": "prettier --write \"**/*.{ts,html,astro,tsx,js,jsx,mdx,jsonc}\" --cache",
+    "format:check": "prettier --check \"**/*.{ts,html,astro,tsx,js,jsx,mdx,jsonc}\" --cache",
     "dev:stage-1": "pnpm --filter @apps/stage-1 dev",
     "dev:stage-2": "pnpm --filter @apps/stage-2 dev"
   },
