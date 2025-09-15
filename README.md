@@ -36,14 +36,10 @@ pnpm i
 cp .env.example .env
 ```
     
-2. Modify environment variables:
-    - `DRIZZLE_ENVIRONMENT`: Possible values are `"development" | "production"`. Default is `"development"`. This variable is used to determine which database to use.
-
-    The variables below can be asked to the project owner:
+2. Modify environment variables. Ask the project owner for the following variables:
     - `CLOUDFLARE_ACCOUNT_ID`: Cloudflare account ID.
     - `CLOUDFLARE_DATABASE_ID`: Cloudflare D1 database ID.
     - `CLOUDFLARE_D1_TOKEN`: Cloudflare D1 token.
-
    
 
 #### 4. Cloudflare Setup

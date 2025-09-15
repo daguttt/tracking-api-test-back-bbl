@@ -34,6 +34,7 @@ export default defineConfig({
 	out: './src/db/migrations',
 	schema: './src/db/schema.ts',
 	dialect: 'sqlite',
+	// `DRIZZLE_ENVIRONMENT` is injected before running a `drizzle-kit` command (e.g. `pnpm db:studio:dev`)
 	...(process.env.DRIZZLE_ENVIRONMENT === 'production'
 		? {
 				driver: 'd1-http',
