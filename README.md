@@ -2,9 +2,21 @@
 
 ## Project Overview
 
-This project is a technical test that...
+This project delivers a shipment tracking HTTP API built for the BBL backend technical test. It models shipments composed of units that progress through checkpoints (e.g., `CREATED`, `PICKED_UP`, `IN_TRANSIT`, `AT_FACILITY`, `OUT_FOR_DELIVERY`, `DELIVERED`, with `EXCEPTION` as an override).
 
-The project is built on Cloudflare Workers for serverless compute and uses Cloudflare D1 for as database storage. The API is designed for robust, scalable, keeping low-latency.
+Core capabilities:
+- List shipments with their computed current status and units’ current status.
+- Retrieve the full tracking history (units with ordered checkpoints) for a shipment.
+- Register checkpoints for units with idempotency by `(unitId, status)`.
+
+Primary endpoints (under `/api/v1`):
+- `GET /health-check` — Liveness proof.
+- `GET /shipments` — List shipments with aggregated status.
+- `GET /tracking/:id` — Full tracking history by shipment ID.
+- `POST /checkpoints` — Create a checkpoint for a unit.
+- `GET /seed` — Seed DB with test data.
+
+The API is built for Cloudflare Workers and Cloudflare D1 (SQLite) to achieve low-cost, low-latency serverless operation. Business logic is organized using a feature-module architecture with dependency injection (tsyringe), request validation (Zod via `@hono/zod-validator`), explicit error handling (`neverthrow`), and Drizzle ORM for type-safe data access. See the Design Decisions section for details.
 
 
 ## Deployed version
