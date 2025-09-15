@@ -12,7 +12,7 @@ export function checkAvailabilityToLog({
 }: {
 	targetLevel: LogLevelLabel;
 }) {
-	const configuredLevel = LOG_LEVEL[process.env.LOG_LEVEL as LogLevelLabel];
+	const configuredLevel = LOG_LEVEL[process.env.LOGGING_LEVEL as LogLevelLabel];
 	const targetLevel = LOG_LEVEL[targetLevelLabel];
 	if (targetLevel < configuredLevel) return false;
 
