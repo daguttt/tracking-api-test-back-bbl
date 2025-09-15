@@ -1,0 +1,45 @@
+{
+	"name": "@apps/stage-1",
+	"type": "module",
+	"scripts": {
+		"dev": "wrangler dev",
+		"deploy": "wrangler deploy --minify",
+		"cf-typegen": "wrangler types --env-interface CloudflareBindings",
+		"format:write": "prettier --write \"**/*.{ts,html,astro,tsx,js,jsx,mdx,jsonc}\" --cache",
+		"format:check": "prettier --check \"**/*.{ts,html,astro,tsx,js,jsx,mdx,jsonc}\" --cache",
+		"lint:check": "eslint **/*.{ts,astro} --no-warn-ignored",
+		"lint:fix": "eslint **/*.{ts,astro} --fix --no-warn-ignored",
+		"db:create:dev": "sh ./scripts/create-local-db.sh",
+		"db:recreate:dev": "rm -rf .wrangler && pnpm db:create:dev",
+		"db:seed:dev": "sh ./scripts/seed-local-db.sh",
+		"db:push:dev": "drizzle-kit push",
+		"db:push:prod": "DRIZZLE_ENVIRONMENT=production drizzle-kit push",
+		"db:generate": "drizzle-kit generate",
+		"db:migrate:dev": "wrangler d1 migrations apply prod-tracking-api --local",
+		"db:migrate:prod": "wrangler d1 migrations apply prod-tracking-api --remote",
+		"db:studio:dev": "drizzle-kit studio",
+		"db:studio:prod": "DRIZZLE_ENVIRONMENT=production drizzle-kit studio"
+	},
+	"dependencies": {
+		"@hono/tsyringe": "1.0.1",
+		"@hono/zod-validator": "0.7.2",
+		"@libsql/client": "0.15.15",
+		"drizzle-orm": "0.44.5",
+		"hono": "^4.9.6",
+		"neverthrow": "8.2.0",
+		"reflect-metadata": "0.2.2",
+		"tsyringe": "4.10.0",
+		"zod": "4.1.8"
+	},
+	"devDependencies": {
+		"@eslint/js": "9.35.0",
+		"@types/node": "24.3.1",
+		"dotenv": "17.2.2",
+		"drizzle-kit": "0.31.4",
+		"eslint": "9.35.0",
+		"prettier": "3.6.2",
+		"typescript": "5.9.2",
+		"typescript-eslint": "8.43.0",
+		"wrangler": "4.37.0"
+	}
+}

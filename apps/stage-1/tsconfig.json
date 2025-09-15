@@ -1,20 +1,19 @@
 {
+	"extends": "../../tsconfig.base.json",
 	"compilerOptions": {
 		"target": "ESNext",
 		"module": "ESNext",
 		"moduleResolution": "Bundler",
-		"strict": true,
-		"skipLibCheck": true,
-		"lib": ["ESNext"],
 		"jsx": "react-jsx",
 		"jsxImportSource": "hono/jsx",
-		"experimentalDecorators": true,
 		"baseUrl": "./src",
+		"experimentalDecorators": true,
 		"paths": {
 			"@modules/*": ["modules/*"],
 			"@db/*": ["db/*"],
 			"@lib/*": ["lib/*"],
 			"@/*": ["*"]
 		}
-	}
+	},
+	"include": ["src", "worker-configuration.d.ts"]
 }

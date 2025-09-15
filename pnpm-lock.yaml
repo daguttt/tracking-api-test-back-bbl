@@ -7,6 +7,24 @@ settings:
 importers:
 
   .:
+    devDependencies:
+      '@eslint/js':
+        specifier: 9.35.0
+        version: 9.35.0
+      '@types/node':
+        specifier: 24.3.1
+        version: 24.3.1
+      eslint:
+        specifier: 9.35.0
+        version: 9.35.0
+      typescript:
+        specifier: 5.9.2
+        version: 5.9.2
+      typescript-eslint:
+        specifier: 8.43.0
+        version: 8.43.0(eslint@9.35.0)(typescript@5.9.2)
+
+  apps/stage-1:
     dependencies:
       '@hono/tsyringe':
         specifier: 1.0.1
@@ -55,7 +73,7 @@ importers:
         specifier: 3.6.2
         version: 3.6.2
       typescript:
-        specifier: ^5.9.2
+        specifier: 5.9.2
         version: 5.9.2
       typescript-eslint:
         specifier: 8.43.0

@@ -1,8 +1,8 @@
 import { defineConfig } from 'drizzle-kit';
 import 'dotenv/config';
 
-import fs from 'node:fs';
-import path from 'node:path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 
 function getLocalD1DB() {
 	try {
