@@ -125,7 +125,9 @@ git clone https://github.com/daguttt/mini-chat-technical-test.git
 ```
 
 ### 2. Install dependencies.
+Make sure to install all the dependencies of the monorepo. This will install the dependencies of the app as well.
 ```bash
+# From the root of the monorepo
 pnpm i
 ```
 
