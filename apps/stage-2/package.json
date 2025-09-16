@@ -1,10 +1,24 @@
 {
-  "name": "stage-2",
+  "name": "@apps/stage-2",
   "version": "1.0.0",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "start": "vercel dev"
+  },
   "keywords": [],
   "author": "daguttt",
   "license": "ISC",
-  "packageManager": "pnpm@10.9.0"
+  "packageManager": "pnpm@10.9.0",
+  "devDependencies": {
+    "drizzle-kit": "0.31.4",
+    "vercel": "48.0.1"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "1.0.1",
+    "drizzle-orm": "0.44.5",
+    "hono": "4.9.6",
+    "neverthrow": "8.2.0",
+    "tsyringe": "4.10.0",
+    "zod": "4.1.8"
+  }
 }

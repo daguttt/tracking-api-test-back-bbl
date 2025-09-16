@@ -5,17 +5,17 @@
     "format:write": "prettier --write \"**/*.{ts,html,astro,tsx,js,jsx,mdx,jsonc}\" --cache",
     "format:check": "prettier --check \"**/*.{ts,html,astro,tsx,js,jsx,mdx,jsonc}\" --cache",
     "dev:stage-1": "pnpm --filter @apps/stage-1 dev",
-    "dev:stage-2": "pnpm --filter @apps/stage-2 dev"
+    "dev:stage-2": "pnpm --filter @apps/stage-2 start"
   },
   "keywords": [],
   "author": "daguttt",
   "license": "ISC",
   "packageManager": "pnpm@10.9.0",
   "devDependencies": {
-    "typescript": "5.9.2",
     "@eslint/js": "9.35.0",
-    "typescript-eslint": "8.43.0",
+    "@types/node": "24.3.1",
     "eslint": "9.35.0",
-    "@types/node": "24.3.1"
+    "typescript": "5.9.2",
+    "typescript-eslint": "8.43.0"
   }
 }
